@@ -37,7 +37,9 @@ def test__get_cases_vides():
         [2, 2, 2, 2],
         [8, 2, 4, 0],
     ]
-    assert _get_cases_vides(plateau) == [(0,0),(0,3),(1,1),(1,3),(3,3)]
+    excepted = [(0,0),(0,3),(1,1),(1,3),(3,3)]
+    result = _get_cases_vides(plateau)
+    assert result == excepted, f"La fonction devrait retourner{excepted} mais retourne {result}"
     print("OK")
 
 
@@ -73,7 +75,10 @@ def test__ajouter_tuile():
 
 def test__supprimer_zeros():
     print("----> Tests de _supprimer_zeros...")
-    raise NotImplementedError("Tests de _supprimer_zeros non implémentés.")
+    ligne = [2, 0, 0, 0]
+    excepted = [2]
+    result = _supprimer_zeros(ligne)
+    assert excepted == result, f"La fonction devrait retourner{excepted} mais retourne {result}"
     print("OK")
 
 def test__fusionner():
@@ -100,7 +105,7 @@ def test__completer_zeros():
         ([], [0,0,0,0]),
         ([2], [2,0,0,0]),
         ([2, 2], [2,2,0,0]),
-        ([2, 0, 2], [2, 0, 2,0]),
+        ([2, 2, 2], [2, 2, 2,0]),
         ([2, 2, 2, 2], [2, 2, 2, 2]),
     )
     for inp, expected in inputs_expecteds:
@@ -294,10 +299,10 @@ def main():
     test__creer_plateau_vide()
     test__get_cases_vides()
     test__ajouter_tuile()
-    test_nouvelle_partie()
     test__supprimer_zeros()
     test__fusionner()
     test__completer_zeros()
+    test_nouvelle_partie()
     test__deplacer_gauche()
     test__inverser_lignes()
     test__deplacer_droite()
