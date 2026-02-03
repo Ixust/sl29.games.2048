@@ -20,6 +20,8 @@ from sl29.games._2048 import (  # type: ignore
 )
 
 def test__creer_plateau_vide():
+    """Test de la fonction _creer_plateau_vide
+    """
     print("----> Tests de _creer_plateau_vide...")
     plateau = _creer_plateau_vide()
     assert len(plateau) == TAILLE # 4 lignes
@@ -30,6 +32,8 @@ def test__creer_plateau_vide():
     print("OK")
 
 def test__get_cases_vides():
+    """Test de la fonction _get_cases_vides
+    """
     print("----> Tests de _get_cases_vides...")
     plateau = [
         [0, 2, 4, 0],
@@ -44,6 +48,8 @@ def test__get_cases_vides():
 
 
 def test__ajouter_tuile():
+    """Test de la fonction _ajouter_tuile
+    """
     print("----> Tests de _ajouter_tuile...")
     plateau = _creer_plateau_vide()
     nouveau_plateau = _ajouter_tuile(plateau)
@@ -51,9 +57,9 @@ def test__ajouter_tuile():
     compte_tuiles = 0
     for ligne in nouveau_plateau:
         for valeur in ligne:
-            if valeur == 2:
+            if valeur > 0:
                 compte_tuiles += 1
-    assert compte_tuiles == 1, "Une seule tuile de valeur 2 devrait être ajoutée."
+    assert compte_tuiles == 1, "Une seule tuile devrait être ajoutée."
     assert plateau != nouveau_plateau, "Le plateau original ne doit pas être modifié"
 
     plateau_non_vide = [
@@ -67,13 +73,15 @@ def test__ajouter_tuile():
     compte_tuiles2 = 0
     for ligne in nouveau_plateau2:
         for valeur in ligne:
-            if valeur == 2:
+            if valeur > 0:
                 compte_tuiles2 += 1
-    assert compte_tuiles2 == 2, "Il devrait y avoir deux tuiles de valeur 2 au total."
+    assert compte_tuiles2 == 3, "Il devrait y avoir trois tuiles au total."
     assert plateau_non_vide != nouveau_plateau2, "Le plateau original ne doit pas être modifié"
     print("OK")
 
 def test__supprimer_zeros():
+    """Test de la fonction _supprimer_zeros
+    """
     print("----> Tests de _supprimer_zeros...")
     ligne = [2, 0, 0, 0]
     excepted = [2]
@@ -82,6 +90,8 @@ def test__supprimer_zeros():
     print("OK")
 
 def test__fusionner():
+    """Test de la fonction _fusionner
+    """
     print("----> Tests de _fusionner...")
     inputs_expecteds = (
         ([], ([], 0)),
@@ -100,6 +110,8 @@ def test__fusionner():
     print("OK")
 
 def test__completer_zeros():
+    """Test de la fonction _completer_zeros
+    """
     print("----> Tests de _completer_zeros...")
     inputs_expecteds = (
         ([], [0,0,0,0]),
@@ -114,6 +126,8 @@ def test__completer_zeros():
     print("OK")
 
 def test_nouvelle_partie():
+    """Test de la fonction nouvelle_partie
+    """
     print("----> Tests de nouvelle_partie...")
     plateau, score = nouvelle_partie()
     compte_tuiles = 0
@@ -126,6 +140,8 @@ def test_nouvelle_partie():
     print("OK")
 
 def test__deplacer_gauche():
+    """Test de la fonction _deplacer_gauche
+    """
     print("----> Tests de _deplacer_gauche...")
     plateau = [
         [2, 2, 0, 0],
@@ -149,26 +165,92 @@ def test__deplacer_gauche():
     print("OK")
 
 def test__inverser_lignes():
+    """Test de la fonction _inverser_lignes
+    """
     print("----> Tests de _inverser_lignes...")
-    raise NotImplementedError("Tests de _inverser_lignes non implémentés.")
+    plateau = [
+        [4, 0, 0, 0],
+        [4, 4, 0, 0],
+        [8, 0, 0, 0],
+        [8, 4, 4, 0]
+    ]
+    attendu_p = [
+        [0, 0, 0, 4],
+        [0, 0, 4, 4],
+        [0, 0, 0, 8],
+        [0, 4, 4, 8]
+    ]
+    resultat = _inverser_lignes(plateau)
+    assert resultat == attendu_p, f"La fonction devrait retourner{attendu_p} mais retourne {resultat}"
     print("OK")
 
 def test__deplacer_droite():
+    """Test de la fonction _deplacer_droite
+    """
     print("----> Tests de _deplacer_droite...")
-    raise NotImplementedError("Tests de _deplacer_droite non implémentés.")
+    plateau = [
+        [2, 2, 0, 0],
+        [2, 2, 2, 2],
+        [0, 0, 4, 4],
+        [8, 4, 2, 2]
+    ]
+    attendu_p = [
+        [0, 0, 0, 4],
+        [0, 0, 4, 4],
+        [0, 0, 0, 8],
+        [0, 8, 4, 4]
+    ]
+    attendu_pts = 4 + 8 + 8 + 4
+    resultat, points = _deplacer_droite(plateau)
+    assert resultat == attendu_p, f"La fonction devrait retourner{attendu_p} mais retourne {resultat}"
+    assert points == attendu_pts, f"Le coup devrait donner {attendu_p} points mais donne {resultat} points"
     print("OK")
 
 def test__transposer():
+    """Test de la fonction _transposer
+    """
     print("----> Tests de _transposer...")
-    raise NotImplementedError("Tests de _transposer non implémentés.")
+    plateau = [
+        [4, 0, 0, 0],
+        [4, 4, 0, 0],
+        [8, 0, 0, 0],
+        [8, 4, 4, 0]
+    ]
+    attendu_p = [
+        [4, 4, 8, 8],
+        [0, 4, 0, 4],
+        [0, 0, 0, 4],
+        [0, 0, 0, 0]
+    ]
+    resultat = _transposer(plateau)
+    assert resultat == attendu_p, f"La fonction devrait retourner{attendu_p} mais retourne {resultat}"
     print("OK")
 
 def test__deplacer_haut():
+    """Test de la fonction _deplacer_haut
+    """
     print("----> Tests de _deplacer_haut...")
-    raise NotImplementedError("Tests de _deplacer_haut non implémentés.")
+    plateau = [
+        [2, 2, 0, 0],
+        [2, 2, 2, 2],
+        [0, 0, 4, 4],
+        [8, 4, 2, 2]
+    ]
+    attendu_p = [
+        [4, 4, 2, 2],
+        [8, 4, 4, 4],
+        [0, 0, 2, 2],
+        [0, 0, 0, 0]
+    ]
+    attendu_pts = 4 + 4 + 0 + 0
+    resultat, points = _deplacer_haut(plateau)
+    assert resultat == attendu_p, f"La fonction devrait retourner{attendu_p} mais retourne {resultat}"
+    assert points == attendu_pts, f"Le coup devrait donner {attendu_p} points mais donne {resultat} points"
     print("OK")
 
 def test__deplacer_bas():
+    """Test de la fonction _deplacer_bas
+    """
     print("----> Tests de _deplacer_bas...")
     plateau = [
         [2, 2, 0, 8],
@@ -183,11 +265,13 @@ def test__deplacer_bas():
         [4, 4, 8, 4]
     ]
     resultat, points = _deplacer_bas(plateau)
-    assert resultat == attendu_p, f"J'aurais du avoir ce plateau {attendu_p} points mais j'ai ce plateau {resultat}."
+    assert resultat == attendu_p, f"J'aurais du avoir ce plateau {attendu_p} mais j'ai ce plateau {resultat}."
     assert points == 20, f"J'aurais du avoir {20} points mais j'ai {points} points."
     print("OK")
 
 def test_jouer_coup():
+    """Test de la fonction jouer_coup
+    """
     print("----> Tests de jouer_coup...")
 
     # --- Cas 1 : Le mouvement est possible ---
@@ -255,6 +339,8 @@ def test_jouer_coup():
     print("OK")
 
 def test__partie_terminee():
+    """Test de la fonction _partie_terminee
+    """
     print("----> Tests de _partie_terminee...")
 
     # Cas 1 : La partie n'est pas finie car il reste des cases vides
@@ -296,6 +382,8 @@ def test__partie_terminee():
     print("OK")
 
 def main():
+    """Execution des tests
+    """
     test__creer_plateau_vide()
     test__get_cases_vides()
     test__ajouter_tuile()
@@ -309,19 +397,27 @@ def main():
     test__transposer()
     test__deplacer_haut()
     test__deplacer_bas()
-    test_jouer_coup()
     test__partie_terminee()
+    test_jouer_coup()
+    test_jouer_coup_direction_invalide()
+    test_ajouter_tuile_plein()
+    test_partie_terminee_avec_fusions()
+    test_partie_terminee_plein_sans_fusions()
 
 def test_jouer_coup_direction_invalide():
+    """Test de la fonction jouer_coup
+    """
     print("----> Tests de jouer_coup avec direction invalide...")
     plateau = [[2,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
     nouveau, points, fini = jouer_coup(plateau, "x")
     assert nouveau == plateau
     assert points == 0
-    assert fini == False
+    assert not fini
     print("OK")
 
 def test_ajouter_tuile_plein():
+    """Test de la fonction _ajouter_tuile
+    """
     print("----> Tests de _ajouter_tuile sur plateau plein...")
     plateau = [[2,4,8,16],[32,64,128,256],[512,1024,2048,4096],[8192,16384,32768,65536]]
     nouveau = _ajouter_tuile(plateau)
@@ -329,20 +425,24 @@ def test_ajouter_tuile_plein():
     print("OK")
 
 def test_partie_terminee_avec_fusions():
+    """Test de la fonction _partie_terminee
+    """
     print("----> Tests de _partie_terminee avec fusions possibles...")
     # Horizontal
     plateau = [[2,2,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
-    assert _partie_terminee(plateau) == False
+    assert not _partie_terminee(plateau)
     # Vertical
     plateau = [[2,0,0,0],[2,0,0,0],[0,0,0,0],[0,0,0,0]]
-    assert _partie_terminee(plateau) == False
+    assert not _partie_terminee(plateau)
     print("OK")
 
 def test_partie_terminee_plein_sans_fusions():
+    """Test de la fonction _partie_terminee
+    """
     print("----> Tests de _partie_terminee plateau plein sans fusions...")
     plateau = [[2,4,8,16],[32,64,128,256],[512,1024,2048,4096],[8192,16384,32768,65536]]
-    assert _partie_terminee(plateau) == True
+    assert _partie_terminee(plateau)
     print("OK")
 
 if __name__ == "__main__":
-	main()
+    main()
