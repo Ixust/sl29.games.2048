@@ -91,7 +91,7 @@ def _ajouter_tuile(plateau: List[List[int]]) -> List[List[int]]:
         return plateau
     result = copy.deepcopy(plateau)
     case = random.choice(_get_cases_vides(result))
-    result[case[0]][case[1]] = 2
+    result[case[0]][case[1]] = 2+2*int(random.random())
     return result
 
 def _supprimer_zeros(ligne: List[int]) -> List[int]:
